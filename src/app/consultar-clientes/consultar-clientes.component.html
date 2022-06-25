@@ -1,0 +1,62 @@
+<div class="card">
+    <div class="card-body">
+
+        <h5>Consulta de clientes</h5>
+        <p>Listagem de clientes cadastrados.</p>
+
+        <div *ngIf="mensagem_sucesso" class="alert alert-success 
+                    alert-dismissible fade show mt-2" role="alert">
+            <strong>Sucesso!</strong> {{mensagem_sucesso}}
+            <button type="button" class="btn-close" aria-label="Close" 
+                    (click)="limparMensagens()"></button>
+        </div>
+
+        <div *ngIf="mensagem_erro" class="alert alert-danger alert-
+             dismissible fade show mt-2" role="alert">
+            <strong>Erro!</strong> {{mensagem_erro}}
+            <button type="button" class="btn-close" aria-label="Close" 
+                    (click)="limparMensagens()"></button>
+        </div>
+
+
+        
+        <table class="table table-hover mt-3">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Email</th>
+                    <th>CPF</th>
+                    <th>Nascimento em</th>
+                    <th width="160">Operações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let c of clientes">
+                    <td>{{c.nome | uppercase}}</td>
+                    <td>{{c.email| lowercase }}</td>
+                    <td>{{c.cpf | CPF }}</td>
+                    <td>{{c.dataNascimento | date: 'dd/MM/yyyy'}}</td>
+                    <td>
+                        <button class="btn btn-sm btn-primary"
+                           [routerLink]="['/editar-clientes', c.idCliente]">
+                            Alterar
+                        </button>
+                        &nbsp;
+                        <button (click)="excluirCliente(c.idCliente, c.nome)"
+                        class="btn btn-sm btn-danger">
+                            Excluir
+                        </button>
+                    </td>
+                 </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="5">
+                        Quantidade de clientes: {{clientes.length}}
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>  
+
